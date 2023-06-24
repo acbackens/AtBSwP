@@ -1,0 +1,59 @@
+# 1. What are escape characters?
+# Escaped characters are special symbols that help with string format.
+
+# 2. What do the \n and \t escape characters represent?
+# \\n is new line, \t is tab.
+
+# 3. How can you put a \ backslash character in a string?
+# Escape the character, like \\.
+
+# 4. The string "Howl's Moving Castle" is a valid string. Why isn't it a problem that the single quote charater in the word Howl's isn't escaped?
+# Because the string starts with double quotes, the single apostrophe doesn't affect it.
+
+# 5. If you don't want to put the \n in your string, how can you write a string with newlines in it?
+# Start the string with triple single quotes.
+
+# 6. What do the following expressions evaluate to?
+# 'Hello world'[1] = 'e'
+# 'Hello world'[0:5] = 'Hello'
+# 'Hello world'[:5] = 'Hello'
+# 'Hello world'[3:] = "lo world'
+
+# 7. What do the following expressions evaluate to?
+# 'Hello'.upper() = 'HELLO'
+# 'Hello'.upper().isupper() = True
+# 'Hello'.upper().lower() = 'hello'
+
+# 8. What do the following expressions evaluate to?
+# 'Remember, remember, the fifth of November.'.split() = ['Remember,','remember,','the', 'fifth', 'of', 'November.']
+# '-'.join('There can be only one.'.split()) = 'There-can-be-only-one.'
+
+# 9. What string methods can you use to right-justify, left-justify, and center a string?
+# .rjust(), .ljust(), .center()
+
+# 10. How can you trim the whitespace characters from the beginning or end of a string?
+# strip(), lstrip(), rstrip()
+
+
+# Practice Project: Table Printer
+
+def printTable():
+    i = 0
+    while i <= len(tableData):
+        length = 0
+        i2 = 0
+        while i2 < len(tableData):
+            for item in tableData[i2]:
+                if len(item) > length:
+                    length = len(item)
+            print(tableData[i2][i].rjust(length), end=' ')
+            i2 += 1
+        i += 1
+        print('\n')
+
+
+tableData=[['apples', 'oranges', 'cherries', 'banana'],
+           ['Alice', 'Bob', 'Carol', 'David'],
+           ['dogs', 'cats', 'moose', 'goose']]
+
+printTable()
