@@ -1,0 +1,133 @@
+# 1. What is the function that creates Regex objects?
+# re.compile()
+
+# 2. Why are raw strings often used when creating Regex objects?
+# Characters do not have to be escaped when entered as a raw string.
+
+# 3. What does the search() method return?
+# It returns a match object, if it is found.
+
+# 4. How do you get the actual strings that match the pattern from a Match object?
+# mo.group()
+
+# 5. In the regex created from r'(\d\d\d)-(\d\d\d-\d\d\d\d)', what does group 0 cover? Group 1? Group 2?
+# Group 0: (\d\d\d), (\d\d\d-\d\d\d\d)
+# Group 1: (\d\d\d)
+# Group 2: (\d\d\d-\d\d\d\d)
+
+# 6. Parenthesis and periods have specific meanings in regular expression syntax. How would you specify that you want a
+#    regex to match actual parentheses and period characters?
+# \.|\(|\)
+
+# 7. The findall() method returns a list of strings or a list of tuples of strings. What makes it return one or the
+#    other?
+# If it is grouped, it returns tuples. If it is not grouped, it returns strings.
+
+# 8. What does the | character signify in regular expressions?
+# or
+
+# 9. What two things does the ? character signify in regular expressions?
+# optional, or non-greedy
+
+# 10. What is the difference between the + and * characters in regular expressions?
+# + means one or more, while * means zero or more
+
+# 11. What is the difference between {3} and {3,5} in regular expressions?
+# {3} matches exactly 3 characters, while {3,5} matches 3, 4, or 5 characters
+
+# 12. What do the \d, \w, and \s shorthand character classes signify in regular expressions?
+# \d = 0-9, \w = a-zA-Z0-9, \s = "space" characters
+
+# 13. What do the \D, \W, and \S shorthand character classes signify in regular expressions?
+# \D = not 0-9, \W = not a-zA-Z0-9, \S = not "space" characters
+
+# 14. How do you make a regular expression case-insensitive?
+# re.I
+
+# 15. What does the . character normally match? What does it match if re.DOTALL is passed as the second argument to
+#     re.compile()?
+# . = all except newline. re.DOTALL matches newlines as well
+
+# 16. What is the difference between .* and .*??
+# .* is greedy, while .*? is non-greedy
+
+# 17. What is the character class syntax to match all numbers and lowercase letters?
+# [0-9a-z]
+
+# 18. If numRegex = re.compile(r'\d+'), what will numRegex.sub('X', '12 drummers, 11 pipers, five rings, 3 hens')
+#     return?
+# X drummers, X pipers, five rings, X hens
+
+# 19. What does passing re.VERBOSE as the second argument to re.compile() allow you to do?
+# Since Python ignores whitespace with the command, you can split the regex into multiple lines
+
+# 20. How would you write a regex that matches a number with commas for every three digits?
+# ^\d{1,2}$|^\d*(,\d{3})+
+
+# 21. How would you write a regex that matches the full name of someone whose last name is Nakamoto? You can assume that
+#     the first name that comes before it will always be one word that begins with a capital letter.
+# ^[A-Z]\w+ Nakamoto
+
+# 22. How would you write a regex that matches a sentence where the first word is either Alice, Bob, or Carol; the
+#     second word is either eats, pets, or throws; the third word is apples, cats, or baseballs; and the sentence ends
+#     with a period? This regex should be case-insensitive.
+# ^([Aa][Ll][Ii][Cc][Ee]|[Bb][Oo][Bb]|[Cc][Aa][Rr][Oo][Ll]) ([Ee][Aa][Tt][Ss]|[Pp][Ee][Tt][Ss]|[Tt][Hh][Rr][Oo][Ww][Ss])
+# ([Aa][Pp][Pp][Ll][Ee][Ss]|[Cc][Aa][Tt][Ss]|[Bb][Aa][Ss][Ee][Bb][Aa][Ll][Ll][Ss])\.$
+# EDITOR'S NOTE: I know you can use re.I on it, but this also works... lol.
+
+
+import re
+
+
+# Practice Project: Strong Password Detection
+
+
+def passwordCheck(password):
+
+    passwordCheckLength = re.compile(r'\w{8,}')
+    passwordCheckUppercase = re.compile(r'[A-Z]+')
+    passwordCheckLowercase = re.compile(r'[a-z]+')
+    passwordCheckDigit = re.compile(r'\d+')
+
+    mo1 = passwordCheckLength.search(password)
+    mo2 = passwordCheckUppercase.search(password)
+    mo3 = passwordCheckLowercase.search(password)
+    mo4 = passwordCheckDigit.search(password)
+
+    if mo1 and mo2 and mo3 and mo4:
+        print("This is a strong password.")
+    else:
+        print("This is not a strong password.")
+
+
+tempPassword = "ABC123abc"
+passwordCheck(tempPassword)
+
+
+# Practice Project: Regex Version of strip()
+
+
+def stripString(string, strip=""):
+
+    stripSpaceRegex = re.compile(r'^\s+|\s+$')
+    leadingSpaceRegex = re.compile(r'^\s\w')
+
+    strArg = str(strip)
+
+    mo1 = leadingSpaceRegex.search(strArg)
+
+    if strip == "":
+        noSpace = stripSpaceRegex.sub('', string)
+        print(noSpace)
+    elif mo1:
+        mo = stripSpaceRegex.sub('', string)
+        for i in strArg:
+            stripCharRegex = re.compile(i)
+            mo = stripCharRegex.sub('', mo)
+        print(mo)
+    else:
+        print(string)
+
+
+tempString = "    bananas     "
+stripString(tempString, strip=" n")
