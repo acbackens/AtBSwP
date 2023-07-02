@@ -1,0 +1,56 @@
+# 1. What is a relative path relative to?
+# It is relative to the active working directory, or the current directory.
+
+# 2. What does an absolute path start with?
+# It starts with the drive letter, like C:\.
+
+# 3. What do the os.getcwd() and os.chdir() functions do?
+# os.getcwd() retrieves the current working directory name, and os.chdir() changes the current working directory.
+
+# 4. What are the . and .. folders?
+# . is the current working directory, and .. is the parent folder.
+
+# 5. In C:\bacon\eggs\spam.txt, which part is the dir name, and which part is the base name?
+# C:\bacon\eggs is the dir name, and spam.txt is the base name.
+
+# 6. What are the three "mode" arguments that can be passed to the open() function?
+# r (read), w (write), a (append)
+
+# 7. What happens if an existing file is opened in write mode?
+# All contents are erased, and the new text overwrites it.
+
+# 8. What is the difference between the read() and readlines() methods?
+# read() will ignore \n characters, while readlines() gives it a new line.
+
+# 9. What data structure does a shelf value resemble?
+# It resembles a dictionary.
+
+import os
+import re
+
+# Practice Project: Mad Libs
+
+adjective = input('Enter an adjective:')
+noun = input('Enter a noun:')
+verb = input('Enter a verb:')
+noun2 = input('Enter a noun:')
+
+story = 'The ' + adjective + ' panda walked to the ' + noun + ' and then ' + verb + '. A nearby ' + noun2 + \
+    ' was unaffected by these events.'
+
+storyFile = open('madlib.txt', 'w')
+storyFile.write(str(story))
+storyFile.close()
+
+print(story)
+
+# Practice Project: Regex Search
+
+regex = re.compile(input(r'Enter a regular expression: '))
+
+os.chdir('.\\textFolder')
+for file in os.listdir('.'):
+    fileOpen = open(file, 'r')
+    fileSearch = fileOpen.read()
+    mo = regex.search(str(fileSearch))
+    print(mo.group())
